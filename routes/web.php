@@ -6,6 +6,7 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\OutController;
+use App\Http\Controllers\InController;
 
 Route::get('/', function () {
     return view('pages.dashboard.index');
@@ -20,6 +21,15 @@ Route::controller(AgendaController::class)->prefix('agenda')->name('agenda.')->g
 });
 
 Route::controller(OutController::class)->prefix('out')->name('out.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/new', 'new')->name('new');
+    Route::get('/{id}', 'edit')->name('edit');
+    Route::post('/', 'store')->name('store');
+    Route::post('/update', 'update')->name('update');
+    Route::get('/destroy/{id}', 'destroy')->name('destroy');
+});
+
+Route::controller(InController::class)->prefix('in')->name('in.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/new', 'new')->name('new');
     Route::get('/{id}', 'edit')->name('edit');
