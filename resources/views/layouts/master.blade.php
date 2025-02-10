@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
 </head>
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
@@ -16,14 +17,6 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-
-      <!-- <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-            <i class="fas fa-search"></i>
-          </a>
-        </li>
-      </ul> -->
     </nav>
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -72,6 +65,35 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-database"></i>
+                <p>
+                  Master Data
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('category.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Jenis Surat</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../index2.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Sifat Surat</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../../index3.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Karyawan</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </div>
@@ -85,6 +107,30 @@
       </section>
 
       <section class="content">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+        @endif
+        @if (session('danger'))
+          <div class="alert alert-danger">
+              {{ session('danger') }}
+          </div>
+        @endif
+        @if (session('danger-with-link'))
+          <div class="alert alert-danger">
+              {!! session('danger-with-link') !!}
+          </div>
+        @endif
+        @if (session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+        @endif
         @yield('content')
       </section>
     </div>
@@ -100,5 +146,7 @@
   <script src="{{ asset('js/jquery.min.js') }}"></script>
   <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
+  <script src="{{ asset('js/datatables.min.js') }}"></script>
+  @stack('scripts')
 </body>
 </html>
