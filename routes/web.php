@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AgendaController;
 
 Route::get('/', function () {
     return view('pages.dashboard.index');
@@ -11,6 +12,10 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
     return view('pages.auth.login');
+});
+
+Route::controller(AgendaController::class)->prefix('agenda')->name('agenda.')->group(function () {
+    Route::get('/', 'index')->name('index');
 });
 
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
