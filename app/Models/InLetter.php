@@ -19,4 +19,9 @@ class InLetter extends Model
     {
         return $this->belongsTo(Level::class, 'level_id');
     }
+
+    public function disposition()
+    {
+        return $this->hasOne(LetterDisposition::class, 'in_letter_id');
+    }
 }

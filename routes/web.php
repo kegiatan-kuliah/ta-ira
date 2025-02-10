@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\OutController;
 use App\Http\Controllers\InController;
+use App\Http\Controllers\DispositionController;
 
 Route::get('/', function () {
     return view('pages.dashboard.index');
@@ -18,6 +19,11 @@ Route::get('/login', function () {
 
 Route::controller(AgendaController::class)->prefix('agenda')->name('agenda.')->group(function () {
     Route::get('/', 'index')->name('index');
+});
+
+Route::controller(DispositionController::class)->prefix('disposition')->name('disposition.')->group(function () {
+    Route::get('/new/{letterId}', 'new')->name('new');
+    Route::post('/store', 'store')->name('store');
 });
 
 Route::controller(OutController::class)->prefix('out')->name('out.')->group(function () {

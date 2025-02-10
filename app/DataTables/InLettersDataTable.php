@@ -29,9 +29,27 @@ class InLettersDataTable extends DataTable
             ->addColumn('level', function($model) {
                 return $model->level->name;
             })
-            ->addColumn('action', function($model){ 
+            ->addColumn('action', function($model){
+                if(isset($model->disposition)) {
+                    return '
+                        <div class="d-flex gap-2">
+                            <a href="'.route('disposition.new', $model->id).'" class="btn btn-info">
+                                <i class="fas fa-print"></i>
+                            </a>
+                            <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    ';
+                } 
                 return '
                     <div class="d-flex gap-2">
+                        <a href="'.route('disposition.new', $model->id).'" class="btn btn-info">
+                            <i class="fas fa-share"></i>
+                        </a>
                         <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
