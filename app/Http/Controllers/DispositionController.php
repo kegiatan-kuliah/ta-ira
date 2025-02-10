@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\LetterDisposition;
 use Carbon\Carbon;
 use Validator;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DispositionController extends Controller
 {
@@ -43,5 +44,13 @@ class DispositionController extends Controller
         ]);
 
         return redirect()->route('in.index')->with('success', 'Surat berhasil di disposisikan');
+    }
+
+    public function print($id)
+    {
+        $data = LetterDisposition::findOrFail($id);
+
+        $pdf = Pdf::loadView('pdf.report.disposition', ['data' => $data])->setPaper('a4', 'potrait');
+        return $pdf->stream();
     }
 }

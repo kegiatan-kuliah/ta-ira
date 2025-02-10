@@ -33,7 +33,7 @@ class InLettersDataTable extends DataTable
                 if(isset($model->disposition)) {
                     return '
                         <div class="d-flex gap-2">
-                            <a href="'.route('disposition.new', $model->id).'" class="btn btn-info">
+                            <a href="'.route('disposition.print', $model->disposition->id).'" class="btn btn-info">
                                 <i class="fas fa-print"></i>
                             </a>
                             <a href="'.route('in.edit', $model->id).'" class="btn btn-info">

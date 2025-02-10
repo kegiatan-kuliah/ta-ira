@@ -23,6 +23,7 @@ Route::controller(AgendaController::class)->prefix('agenda')->name('agenda.')->g
 
 Route::controller(DispositionController::class)->prefix('disposition')->name('disposition.')->group(function () {
     Route::get('/new/{letterId}', 'new')->name('new');
+    Route::get('/print/{id}', 'print')->name('print');
     Route::post('/store', 'store')->name('store');
 });
 

@@ -15,6 +15,11 @@ class LetterDisposition extends Model
         return $this->belongsTo(InLetter::class, 'in_letter_id');
     }
 
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
+
     public static function generateNo()
     {
         $latest = self::latest('id')->first(); // Get the latest record
