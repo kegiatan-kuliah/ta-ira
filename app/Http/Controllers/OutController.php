@@ -7,6 +7,7 @@ use App\Models\OutLetter;
 use App\Models\LetterAgenda;
 use Validator;
 use App\DataTables\OutLettersDataTable;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OutController extends Controller
 {
@@ -110,5 +111,12 @@ class OutController extends Controller
         $destroy = $data->delete();
 
         return redirect()->route('out.index')->with('success', 'Data deleted successfully');
+    }
+
+    public function report()
+    {
+        $letters = $this->table->get();
+        $pdf = Pdf::loadView('pdf.report.out_report', ['letters' => $letters])->setPaper('a4', 'potrait');
+        return $pdf->stream();
     }
 }

@@ -18,6 +18,7 @@
     <h3 class="card-title">Tambah Surat Masuk</h3>
 
     <div class="card-tools">
+      <a href="{{ route('in.report') }}" target="__blank" class="btn btn-info">Cetak Laporan</a>
       <a href="{{ route('in.new') }}" class="btn btn-primary">Tambah Surat Masuk</a>
     </div>
   </div>

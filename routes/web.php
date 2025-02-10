@@ -22,6 +22,7 @@ Route::controller(AgendaController::class)->prefix('agenda')->name('agenda.')->g
 
 Route::controller(OutController::class)->prefix('out')->name('out.')->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/report', 'report')->name('report');
     Route::get('/new', 'new')->name('new');
     Route::get('/{id}', 'edit')->name('edit');
     Route::post('/', 'store')->name('store');
@@ -31,6 +32,7 @@ Route::controller(OutController::class)->prefix('out')->name('out.')->group(func
 
 Route::controller(InController::class)->prefix('in')->name('in.')->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/report', 'report')->name('report');
     Route::get('/new', 'new')->name('new');
     Route::get('/{id}', 'edit')->name('edit');
     Route::post('/', 'store')->name('store');
