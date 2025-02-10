@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\OutController;
 
 Route::get('/', function () {
     return view('pages.dashboard.index');
@@ -17,6 +18,16 @@ Route::get('/login', function () {
 Route::controller(AgendaController::class)->prefix('agenda')->name('agenda.')->group(function () {
     Route::get('/', 'index')->name('index');
 });
+
+Route::controller(OutController::class)->prefix('out')->name('out.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/new', 'new')->name('new');
+    Route::get('/{id}', 'edit')->name('edit');
+    Route::post('/', 'store')->name('store');
+    Route::post('/update', 'update')->name('update');
+    Route::get('/destroy/{id}', 'destroy')->name('destroy');
+});
+
 
 Route::controller(CategoryController::class)->prefix('category')->name('category.')->group(function () {
     Route::get('/', 'index')->name('index');

@@ -2,28 +2,29 @@
 @section('breadcrumbs')
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h1>Tambah Surat Keluar</h1>
+    <h1>Sunting Surat Keluar</h1>
   </div>
   <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
       <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item active">Tambah Surat Keluar</li>
+      <li class="breadcrumb-item active">Sunting Surat Keluar</li>
     </ol>
   </div>
 </div>
 @endsection
 @section('content')
-{{ html()->form('POST', route('out.store'))->attribute('enctype', 'multipart/form-data')->open() }}
+{{ html()->form('POST', route('out.update'))->attribute('enctype', 'multipart/form-data')->open() }}
+  {{ html()->hidden('id', $data->id) }}
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Tambah Surat Keluar</h3>
+      <h3 class="card-title">Sunting Surat Keluar</h3>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
             {{ html()->label('No Surat', 'letter_no')->class('form-label') }}
-            {{ html()->input('text', 'letter_no')
+            {{ html()->input('text', 'letter_no', $data->letter_no)
               ->class('form-control')->attribute('required', true)
               ->attribute('placeholder', 'Isikan no surat') }}
           </div>
@@ -31,7 +32,7 @@
         <div class="col-md-4">
           <div class="form-group">
             {{ html()->label('Tanggal Surat', 'letter_date')->class('form-label') }}
-            {{ html()->input('text', 'letter_date')
+            {{ html()->input('text', 'letter_date', $data->letter_date)
               ->class('form-control datepicker')->attribute('required', true)
               ->attribute('placeholder', 'Isikan tanggal surat') }}
           </div>
@@ -40,7 +41,7 @@
           <div class="form-group">
             {{ html()->label('Lampiran', 'lampiran')->class('form-label') }}
             {{ html()->file('attachment')
-								->class('form-control')->attribute('required', true) }}
+								->class('form-control') }}
           </div>
         </div>
       </div>
@@ -48,7 +49,7 @@
         <div class="col-md-4">
           <div class="form-group">
             {{ html()->label('Tujuan', 'recipient')->class('form-label') }}
-            {{ html()->input('text', 'recipient')
+            {{ html()->input('text', 'recipient', $data->recipient)
               ->class('form-control')->attribute('required', true)
               ->attribute('placeholder', 'Isikan tujuan') }}
           </div>
@@ -56,7 +57,7 @@
         <div class="col-md-8">
           <div class="form-group">
             {{ html()->label('Perihal', 'subject')->class('form-label') }}
-            {{ html()->input('text', 'subject')
+            {{ html()->input('text', 'subject', $data->subject)
               ->class('form-control')->attribute('required', true)
               ->attribute('placeholder', 'Isikan perihal') }}
           </div>

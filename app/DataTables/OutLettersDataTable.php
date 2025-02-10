@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\LetterAgenda;
+use App\Models\OutLetter;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class LetterAgendasDataTable extends DataTable
+class OutLettersDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,14 +23,17 @@ class LetterAgendasDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->addColumn('letter_no', function($model) {
-                if($model->in_letter_id) {
-                    return $model->inLetter->letter_no;
-                }
-
-                if($model->out_letter_id) {
-                    return $model->outLetter->letter_no;
-                }
+            ->addColumn('action', function($model){ 
+                return '
+                    <div class="d-flex gap-2">
+                        <a href="'.route('out.edit', $model->id).'" class="btn btn-info">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="'.route('out.destroy', $model->id).'" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                ';
             })
             ->setRowId('id');
     }
@@ -38,7 +41,7 @@ class LetterAgendasDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(LetterAgenda $model): QueryBuilder
+    public function query(OutLetter $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -49,7 +52,7 @@ class LetterAgendasDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('letteragendas-table')
+                    ->setTableId('outletters-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -77,9 +80,15 @@ class LetterAgendasDataTable extends DataTable
                 ->printable(false)
                 ->title('#')
                 ->width(20),
-            Column::make('agenda_no')->title('No Agenda'),
             Column::make('letter_no')->title('No Surat'),
-            Column::make('date'),
+            Column::make('letter_date')->title('Tanggal Surat'),
+            Column::make('recipient')->title('Penerima'),
+            Column::make('subject')->title('Perihal'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(60)
+                  ->addClass('text-center'),
         ];
     }
 
@@ -88,6 +97,6 @@ class LetterAgendasDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'LetterAgendas_' . date('YmdHis');
+        return 'OutLetters_' . date('YmdHis');
     }
 }
