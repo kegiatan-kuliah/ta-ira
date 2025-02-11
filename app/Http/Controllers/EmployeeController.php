@@ -35,8 +35,10 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $data = $this->table->findOrFail($id);
+        $roles = Role::whereNot('name','super')->pluck('name','name');
         return view('pages.employee.edit')->with([
-            'data' => $data
+            'data' => $data,
+            'roles' => $roles
         ]);
     }
 
@@ -106,7 +108,9 @@ class EmployeeController extends Controller
 
         $member = $this->table->findOrFail($request->id);
 
-        $user = $this->userTable->where('id', $member->user_id)->update([
+        $user = $this->userTable->findOrFail($member->user->id);
+
+        $this->userTable->where('id', $member->user_id)->update([
             'email' => $request->email,
             'role' => $request->role
         ]);

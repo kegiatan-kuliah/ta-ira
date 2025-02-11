@@ -18,6 +18,8 @@ class AuthController extends Controller
 
             return redirect()->route('dashboard.index');
         }
+
+        return redirect()->back()->with('danger', 'Email atau password salah');
     }
 
     public function logout()
