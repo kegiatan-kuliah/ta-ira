@@ -35,21 +35,24 @@
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a href="../widgets.html" class="nav-link">
+              <a href="{{ route('dashboard.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Dashboard
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{{ route('in.index') }}" class="nav-link">
-                <i class="nav-icon fas fa-inbox"></i>
-                <p>
-                  Surat Masuk
-                </p>
-              </a>
-            </li>
+            @canany(['lihat semua surat masuk','lihat surat masuk'])
+              <li class="nav-item">
+                <a href="{{ route('in.index') }}" class="nav-link">
+                  <i class="nav-icon fas fa-inbox"></i>
+                  <p>
+                    Surat Masuk
+                  </p>
+                </a>
+              </li>
+            @endcan
+            @can('lihat surat keluar')
             <li class="nav-item">
               <a href="{{ route('out.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-paper-plane"></i>
@@ -58,6 +61,7 @@
                 </p>
               </a>
             </li>
+            @endcan
             <li class="nav-item">
               <a href="{{ route('agenda.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
@@ -66,34 +70,50 @@
                 </p>
               </a>
             </li>
+            @canany(['lihat jenis surat','lihat sifat surat','lihat petugas'])
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-database"></i>
+                  <p>
+                    Master Data
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  @can('lihat jenis surat')
+                    <li class="nav-item">
+                      <a href="{{ route('category.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Jenis Surat</p>
+                      </a>
+                    </li>
+                  @endcan
+                  @can('lihat sifat surat')
+                  <li class="nav-item">
+                    <a href="{{ route('level.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Sifat Surat</p>
+                    </a>
+                  </li>
+                  @endcan
+                  @can('lihat karyawan')
+                  <li class="nav-item">
+                    <a href="{{ route('employee.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Karyawan</p>
+                    </a>
+                  </li>
+                  @endcan
+                </ul>
+              </li>
+            @endcan
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-database"></i>
+              <a href="{{ route('auth.logout') }}" class="nav-link">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
-                  Master Data
-                  <i class="right fas fa-angle-left"></i>
+                  Keluar
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('category.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Jenis Surat</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('level.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Sifat Surat</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('employee.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Karyawan</p>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </nav>
