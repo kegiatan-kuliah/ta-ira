@@ -17,9 +17,11 @@
   <div class="card-header">
     <h3 class="card-title">Daftar Jenis Surat</h3>
 
+    @can('tambah jenis surat')
     <div class="card-tools">
       <a href="{{ route('category.new') }}" class="btn btn-primary">Tambah Jenis Surat</a>
     </div>
+    @endcan
   </div>
   <div class="card-body">
     {{ $dataTable->table() }}

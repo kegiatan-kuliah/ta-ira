@@ -17,9 +17,11 @@
   <div class="card-header">
     <h3 class="card-title">Daftar Sifat Surat</h3>
 
-    <div class="card-tools">
-      <a href="{{ route('level.new') }}" class="btn btn-primary">Tambah Sifat Surat</a>
-    </div>
+    @can('tambah sifat surat')
+      <div class="card-tools">
+        <a href="{{ route('level.new') }}" class="btn btn-primary">Tambah Sifat Surat</a>
+      </div>
+    @end
   </div>
   <div class="card-body">
     {{ $dataTable->table() }}

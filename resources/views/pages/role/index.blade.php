@@ -17,9 +17,11 @@
   <div class="card-header">
     <h3 class="card-title">Daftar Hak Akses</h3>
 
-    <div class="card-tools">
-      <a href="{{ route('role.new') }}" class="btn btn-primary">Tambah Hak Akses</a>
-    </div>
+    @can('tambah akses')
+      <div class="card-tools">
+        <a href="{{ route('role.new') }}" class="btn btn-primary">Tambah Hak Akses</a>
+      </div>
+    @endcan
   </div>
   <div class="card-body">
     {{ $dataTable->table() }}

@@ -31,33 +31,78 @@ class InLettersDataTable extends DataTable
             })
             ->addColumn('action', function($model){
                 if(isset($model->disposition)) {
-                    return '
+                    if(Auth::user()->can('edit surat masuk') && Auth::user()->can('hapus surat masuk')) {
+                        return '
+                            <div class="d-flex gap-2">
+                                <a href="'.route('disposition.print', $model->disposition->id).'" class="btn btn-info">
+                                    <i class="fas fa-print"></i>
+                                </a>
+                                <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        ';
+                    } else if(Auth::user()->can('edit surat masuk') && !Auth::user()->can('hapus surat masuk')) {
+                        return '
+                            <div class="d-flex gap-2">
+                                <a href="'.route('disposition.print', $model->disposition->id).'" class="btn btn-info">
+                                    <i class="fas fa-print"></i>
+                                </a>
+                                <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                            </div>
+                        ';
+                    }
+    
+                    return '-
                         <div class="d-flex gap-2">
                             <a href="'.route('disposition.print', $model->disposition->id).'" class="btn btn-info">
                                 <i class="fas fa-print"></i>
                             </a>
-                            <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
                         </div>
                     ';
-                } 
-                return '
-                    <div class="d-flex gap-2">
-                        <a href="'.route('disposition.new', $model->id).'" class="btn btn-info">
-                            <i class="fas fa-share"></i>
-                        </a>
-                        <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                ';
+                } else {
+                    if(Auth::user()->can('edit surat masuk') && Auth::user()->can('hapus surat masuk') && Auth::user()->can('disposisi surat masuk')) {
+                        return '
+                            <div class="d-flex gap-2">
+                                <a href="'.route('disposition.new', $model->id).'" class="btn btn-info">
+                                    <i class="fas fa-share"></i>
+                                </a>
+                                <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        ';
+                    } else if(Auth::user()->can('edit surat masuk') && Auth::user()->can('hapus surat masuk') && !Auth::user()->can('disposisi surat masuk')) {
+                        return '
+                            <div class="d-flex gap-2">
+                                <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        ';
+                    } else if(Auth::user()->can('edit surat masuk') && !Auth::user()->can('hapus surat masuk') && !Auth::user()->can('disposisi surat masuk')) {
+                        return '
+                            <div class="d-flex gap-2">
+                                <a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                            </div>
+                        ';
+                    }
+                }
+                
+                return '-';
             });
     }
 

@@ -17,9 +17,11 @@
   <div class="card-header">
     <h3 class="card-title">Daftar Petugas</h3>
 
+    @can('tambah petugas')
     <div class="card-tools">
       <a href="{{ route('employee.new') }}" class="btn btn-primary">Tambah Petugas</a>
     </div>
+    @endcan
   </div>
   <div class="card-body">
     {{ $dataTable->table() }}

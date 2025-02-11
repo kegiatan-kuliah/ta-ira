@@ -24,16 +24,28 @@ class OutLettersDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addIndexColumn()
             ->addColumn('action', function($model){ 
-                return '
-                    <div class="d-flex gap-2">
-                        <a href="'.route('out.edit', $model->id).'" class="btn btn-info">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="'.route('out.destroy', $model->id).'" class="btn btn-danger">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                ';
+                if(Auth::user()->can('edit surat keluar') && Auth::user()->can('hapus surat keluar')) {
+                    return '
+                        <div class="d-flex gap-2">
+                            <a href="'.route('out.edit', $model->id).'" class="btn btn-info">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="'.route('out.destroy', $model->id).'" class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    ';
+                } else if(Auth::user()->can('edit surat keluar') && !Auth::user()->can('hapus surat keluar')) {
+                    return '
+                        <div class="d-flex gap-2">
+                            <a href="'.route('out.edit', $model->id).'" class="btn btn-info">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                        </div>
+                    ';
+                }
+
+                return '-';
             })
             ->setRowId('id');
     }

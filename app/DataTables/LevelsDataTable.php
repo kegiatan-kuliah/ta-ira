@@ -11,6 +11,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Auth;
 
 class LevelsDataTable extends DataTable
 {
@@ -24,16 +25,28 @@ class LevelsDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addIndexColumn()
             ->addColumn('action', function($model){ 
-                return '
-                    <div class="d-flex gap-2">
-                        <a href="'.route('level.edit', $model->id).'" class="btn btn-info">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="'.route('level.destroy', $model->id).'" class="btn btn-danger">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                ';
+                if(Auth::user()->can('edit sifat surat') && Auth::user()->can('hapus sifat surat')) {
+                    return '
+                        <div class="d-flex gap-2">
+                            <a href="'.route('level.edit', $model->id).'" class="btn btn-info">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="'.route('level.destroy', $model->id).'" class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    ';
+                } else if(Auth::user()->can('edit sifat surat') && !Auth::user()->can('hapus sifat surat')) {
+                    return '
+                        <div class="d-flex gap-2">
+                            <a href="'.route('level.edit', $model->id).'" class="btn btn-info">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                        </div>
+                    ';
+                }
+
+                return '-';
             })
             ->setRowId('id');
     }

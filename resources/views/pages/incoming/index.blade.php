@@ -17,10 +17,12 @@
   <div class="card-header">
     <h3 class="card-title">Tambah Surat Masuk</h3>
 
-    <div class="card-tools">
-      <a href="{{ route('in.report') }}" target="__blank" class="btn btn-info">Cetak Laporan</a>
-      <a href="{{ route('in.new') }}" class="btn btn-primary">Tambah Surat Masuk</a>
-    </div>
+    @can('tambah surat masuk')
+      <div class="card-tools">
+        <a href="{{ route('in.report') }}" target="__blank" class="btn btn-info">Cetak Laporan</a>
+        <a href="{{ route('in.new') }}" class="btn btn-primary">Tambah Surat Masuk</a>
+      </div>
+    @endcan
   </div>
   <div class="card-body">
     {{ $dataTable->table() }}
