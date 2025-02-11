@@ -11,6 +11,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Auth;
 
 class InLettersDataTable extends DataTable
 {
@@ -58,7 +59,7 @@ class InLettersDataTable extends DataTable
                         ';
                     }
     
-                    return '-
+                    return '
                         <div class="d-flex gap-2">
                             <a href="'.route('disposition.print', $model->disposition->id).'" class="btn btn-info">
                                 <i class="fas fa-print"></i>
@@ -111,7 +112,14 @@ class InLettersDataTable extends DataTable
      */
     public function query(InLetter $model): QueryBuilder
     {
-        return $model->newQuery();
+        if(Auth::user()->can('lihat semua surat masuk')) {
+            return $model->newQuery();
+        } else {
+
+            return $model->whereHas('disposition', function ($query) {
+                $query->where('employee_id', Auth::user()->employee->id);
+            })->newQuery();
+        }
     }
 
     /**
