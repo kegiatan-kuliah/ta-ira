@@ -96,11 +96,19 @@
                     </a>
                   </li>
                   @endcan
-                  @can('lihat karyawan')
+                  @can('lihat petugas')
                   <li class="nav-item">
                     <a href="{{ route('employee.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Karyawan</p>
+                      <p>Petugas</p>
+                    </a>
+                  </li>
+                  @endcan
+                  @can('lihat akses')
+                  <li class="nav-item">
+                    <a href="{{ route('role.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Hak Akses</p>
                     </a>
                   </li>
                   @endcan

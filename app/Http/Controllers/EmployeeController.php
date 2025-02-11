@@ -8,6 +8,7 @@ use App\Models\User;
 use Validator;
 use App\DataTables\EmployeesDataTable;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
@@ -25,7 +26,10 @@ class EmployeeController extends Controller
 
     public function new()
     {
-        return view('pages.employee.new');
+        $roles = Role::whereNot('name','super')->pluck('name','name');
+        return view('pages.employee.new')->with([
+            'roles' => $roles
+        ]);
     }
 
     public function edit($id)
@@ -65,6 +69,8 @@ class EmployeeController extends Controller
             'is_active' => true
         ]);
 
+        $user->assignRole($request->role);
+
         $store = $this->table->create([
             'name' => $request->name,
             'email' => $request->email,
@@ -100,10 +106,12 @@ class EmployeeController extends Controller
 
         $member = $this->table->findOrFail($request->id);
 
-        $this->userTable->where('id', $member->user_id)->update([
+        $user = $this->userTable->where('id', $member->user_id)->update([
             'email' => $request->email,
             'role' => $request->role
         ]);
+
+        $user->assignRole($request->role);
 
         $store = $this->table->where('id', $request->id)->update([
             'name' => $request->name,

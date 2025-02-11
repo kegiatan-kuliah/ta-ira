@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Employee;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class EmployeesDataTable extends DataTable
+class RolesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,19 +23,13 @@ class EmployeesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->addColumn('email', function($model) {
-                return $model->user->email;
-            })
-            ->addColumn('role', function($model) {
-                return $model->user->role;
-            })
             ->addColumn('action', function($model){ 
                 return '
                     <div class="d-flex gap-2">
-                        <a href="'.route('employee.edit', $model->id).'" class="btn btn-info">
+                        <a href="#" class="btn btn-info">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="'.route('employee.destroy', $model->id).'" class="btn btn-danger">
+                        <a href="'.route('role.destroy', $model->id).'" class="btn btn-danger">
                             <i class="fas fa-trash"></i>
                         </a>
                     </div>
@@ -47,9 +41,9 @@ class EmployeesDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Employee $model): QueryBuilder
+    public function query(Role $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->whereNot('name','super')->newQuery();
     }
 
     /**
@@ -58,19 +52,19 @@ class EmployeesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('employees-table')
+                    ->setTableId('roles-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                        // Button::make('excel'),
+                        // Button::make('csv'),
+                        // Button::make('pdf'),
+                        // Button::make('print'),
+                        // Button::make('reset'),
+                        // Button::make('reload')
                     ]);
     }
 
@@ -87,11 +81,6 @@ class EmployeesDataTable extends DataTable
                 ->title('#')
                 ->width(20),
             Column::make('name'),
-            Column::make('email'),
-            Column::make('identity_no')->label('NIP'),
-            Column::make('rank'),
-            Column::make('role')->label('Hak Akses'),
-            Column::make('phone_no')->label('No HP'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
@@ -105,6 +94,6 @@ class EmployeesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Employees_' . date('YmdHis');
+        return 'Roles_' . date('YmdHis');
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\InController;
 use App\Http\Controllers\DispositionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RoleController;
 
 Route::controller(AuthController::class)->prefix('auth')->name('auth.')->group(function () {
     Route::get('/', 'index')->name('index');
@@ -76,6 +77,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}', 'edit')->name('edit');
         Route::post('/', 'store')->name('store');
         Route::put('/', 'update')->name('update');
+        Route::get('/destroy/{id}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(RoleController::class)->prefix('role')->name('role.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/new', 'new')->name('new');
+        Route::post('/', 'store')->name('store');
         Route::get('/destroy/{id}', 'destroy')->name('destroy');
     });
 });
