@@ -26,7 +26,7 @@ class RolesDataTable extends DataTable
             ->addColumn('action', function($model){ 
                 return '
                     <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-info">
+                        <a href="'.route('role.edit', $model->id).'" class="btn btn-info">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
                         <a href="'.route('role.destroy', $model->id).'" class="btn btn-danger">

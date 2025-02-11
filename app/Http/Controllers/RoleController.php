@@ -29,6 +29,18 @@ class RoleController extends Controller
         ]);
     }
 
+    public function edit($id)
+    {
+        $data = $this->table->findOrFail($id);
+        $hasPermissions = $data->permissions->pluck('name')->toArray();
+        $permissions = Permission::get();
+        return view('pages.role.edit')->with([
+            'permissions' => $permissions,
+            'hasPermissions' => $hasPermissions,
+            'data' => $data
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -47,6 +59,27 @@ class RoleController extends Controller
         $role->syncPermissions([$request->permissions]);
 
         return redirect()->route('role.index')->with('success', 'Data saved successfully');
+    }
+
+    public function update(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3|unique:roles,name,'.$request->id,
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withErrors($validator);
+        }
+
+        $role = $this->table->findOrFail($request->id);
+
+        $store = $this->table->where('id', $request->id)->update([
+            'name' => $request->name,
+        ]);
+
+        $role->syncPermissions([$request->permissions]);
+
+        return redirect()->route('role.index')->with('success', 'Data updated successfully');
     }
 
     public function destroy($id) {
