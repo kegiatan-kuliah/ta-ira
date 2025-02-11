@@ -40,7 +40,7 @@
 </head>
 
 <body>
-    <h2>Laporan Surat Masuk</h2>
+    <h2>Laporan Surat Masuk FEB UNP</h2>
     <table>
         <thead>
             <tr>
