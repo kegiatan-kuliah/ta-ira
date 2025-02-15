@@ -34,6 +34,9 @@
               ->class('form-control')->attribute('required', true)
               ->attribute('placeholder', 'Isikan no instruksi') }}
           </div>
+          <div class="form-group">
+            <a href="/storage/{{ $data->attachment }}">Download Surat</a>
+          </div>
         </div>
       </div>
     </div>

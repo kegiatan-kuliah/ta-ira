@@ -49,9 +49,9 @@
         <div class="col-md-4">
           <div class="form-group">
             {{ html()->label('Tujuan', 'recipient')->class('form-label') }}
-            {{ html()->input('text', 'recipient', $data->recipient)
-              ->class('form-control')->attribute('required', true)
-              ->attribute('placeholder', 'Isikan tujuan') }}
+            {{ html()->select('recipient', ['' => 'Pilih Tujuan Surat'] + $recipients->toArray(), $data->recipient)
+                ->class('form-control')
+              }}
           </div>
         </div>
         <div class="col-md-8">

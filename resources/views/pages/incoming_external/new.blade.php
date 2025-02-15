@@ -2,21 +2,21 @@
 @section('breadcrumbs')
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h1>Tambah Surat Masuk Internal</h1>
+    <h1>Tambah Surat Masuk External</h1>
   </div>
   <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
       <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item active">Tambah Surat Masuk Internal</li>
+      <li class="breadcrumb-item active">Tambah Surat Masuk External</li>
     </ol>
   </div>
 </div>
 @endsection
 @section('content')
-{{ html()->form('POST', route('in.store'))->attribute('enctype', 'multipart/form-data')->open() }}
+{{ html()->form('POST', route('in_ex.store'))->attribute('enctype', 'multipart/form-data')->open() }}
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Tambah Surat Masuk Internal</h3>
+      <h3 class="card-title">Tambah Surat Masuk External</h3>
     </div>
     <div class="card-body">
       <div class="row">
@@ -65,10 +65,10 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            {{ html()->label('Unit', 'sender')->class('form-label') }}
+            {{ html()->label('Pengirim', 'sender')->class('form-label') }}
             {{ html()->input('text', 'sender')
               ->class('form-control')->attribute('required', true)
-              ->attribute('placeholder', 'Isikan unit') }}
+              ->attribute('placeholder', 'Isikan pengirim') }}
           </div>
         </div>
         <div class="col-md-8">
@@ -83,7 +83,7 @@
     </div>
     <div class="card-footer">
       <div class="d-flex justify-content-between">
-        <a href="{{ route('in.index') }}" class="btn btn-default">Kembali</a>
+        <a href="{{ route('in_ex.index') }}" class="btn btn-default">Kembali</a>
         {{ html()->button('Simpan')->class('btn btn-primary')->attribute('type', 'submit') }}
       </div>
     </div>

@@ -2,12 +2,12 @@
 @section('breadcrumbs')
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h1>Sifat Surat</h1>
+    <h1>Tujuan Surat</h1>
   </div>
   <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
       <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item active">Sifat Surat</li>
+      <li class="breadcrumb-item active">Tujuan Surat</li>
     </ol>
   </div>
 </div>
@@ -15,12 +15,12 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">Daftar Sifat Surat</h3>
+    <h3 class="card-title">Daftar Tujuan Surat</h3>
 
-    @can('tambah sifat surat')
-      <div class="card-tools">
-        <a href="{{ route('level.new') }}" class="btn btn-primary">Tambah Sifat Surat</a>
-      </div>
+    @can('tambah jenis surat')
+    <div class="card-tools">
+      <a href="{{ route('recipient.new') }}" class="btn btn-primary">Tambah Tujuan Surat</a>
+    </div>
     @endcan
   </div>
   <div class="card-body">

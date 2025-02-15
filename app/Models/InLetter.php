@@ -8,7 +8,7 @@ class InLetter extends Model
 {
     protected $table = 'in_letters';
 
-    protected $fillable = ['letter_no','letter_date','sender','subject','attachment','category_id','level_id'];
+    protected $fillable = ['letter_no','type','letter_date','sender','subject','attachment','category_id','level_id'];
 
     public function category()
     {

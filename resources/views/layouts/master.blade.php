@@ -44,12 +44,27 @@
             </li>
             @canany(['lihat semua surat masuk','lihat surat masuk'])
               <li class="nav-item">
-                <a href="{{ route('in.index') }}" class="nav-link">
-                  <i class="nav-icon fas fa-inbox"></i>
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-database"></i>
                   <p>
                     Surat Masuk
+                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('in.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Internal</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('in_ex.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>External</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
             @endcan
             @can('lihat surat keluar')
@@ -96,6 +111,12 @@
                     </a>
                   </li>
                   @endcan
+                  <li class="nav-item">
+                    <a href="{{ route('recipient.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Tujuan Surat</p>
+                    </a>
+                  </li>
                   @can('lihat petugas')
                   <li class="nav-item">
                     <a href="{{ route('employee.index') }}" class="nav-link">
@@ -104,6 +125,7 @@
                     </a>
                   </li>
                   @endcan
+                  
                   @can('lihat akses')
                   <li class="nav-item">
                     <a href="{{ route('role.index') }}" class="nav-link">

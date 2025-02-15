@@ -2,12 +2,12 @@
 @section('breadcrumbs')
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h1>Sifat Surat</h1>
+    <h1>Surat Masuk External</h1>
   </div>
   <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
       <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item active">Sifat Surat</li>
+      <li class="breadcrumb-item active">Surat Masuk</li>
     </ol>
   </div>
 </div>
@@ -15,11 +15,12 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">Daftar Sifat Surat</h3>
+    <h3 class="card-title">Tambah Surat Masuk External</h3>
 
-    @can('tambah sifat surat')
+    @can('tambah surat masuk')
       <div class="card-tools">
-        <a href="{{ route('level.new') }}" class="btn btn-primary">Tambah Sifat Surat</a>
+        <a href="{{ route('in_ex.report') }}" target="__blank" class="btn btn-info">Cetak Laporan</a>
+        <a href="{{ route('in_ex.new') }}" class="btn btn-primary">Tambah Surat Masuk External</a>
       </div>
     @endcan
   </div>

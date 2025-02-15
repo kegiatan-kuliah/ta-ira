@@ -3,52 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\OutLetter;
+use App\Models\InLetter;
+use App\Models\Category;
+use App\Models\Level;
 use App\Models\LetterAgenda;
-use App\Models\Recipient;
 use Validator;
-use App\DataTables\OutLettersDataTable;
+use App\DataTables\InLetterExternalsDataTable;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-class OutController extends Controller
+class InLetterExternalController extends Controller
 {
     private $table;
 
-    public function __construct(OutLetter $table, LetterAgenda $agendaTable) {
+    public function __construct(InLetter $table, LetterAgenda $agendaTable) {
         $this->table = $table;
         $this->agendaTable = $agendaTable;
     }
 
-    public function index(OutLettersDataTable $dataTable)
+    public function index(InLetterExternalsDataTable $dataTable)
     {
-        return $dataTable->render('pages.outgoing.index');
+        return $dataTable->render('pages.incoming_external.index');
     }
 
     public function new()
     {
-        $recipients = Recipient::pluck('name','name');
-        return view('pages.outgoing.new')->with([
-            'recipients' => $recipients
+        $categories = Category::pluck('name','id');
+        $levels = Level::pluck('name','id');
+        return view('pages.incoming_external.new')->with([
+            'categories' => $categories,
+            'levels' => $levels
         ]);
     }
 
     public function edit($id)
     {
         $data = $this->table->findOrFail($id);
-        $recipients = Recipient::pluck('name','name');
-        return view('pages.outgoing.edit')->with([
+        $categories = Category::pluck('name','id');
+        $levels = Level::pluck('name','id');
+        return view('pages.incoming_external.edit')->with([
             'data' => $data,
-            'recipients' => $recipients
+            'categories' => $categories,
+            'levels' => $levels
         ]);
     }
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'letter_no' => 'required|min:3|unique:out_letters,letter_no',
+            'letter_no' => 'required|min:3|unique:in_letters,letter_no',
             'letter_date' => 'required',
-            'recipient' => 'required',
+            'sender' => 'required',
             'subject' => 'required',
             'attachment' => 'required',
+            'category_id' => 'required',
+            'level_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -60,27 +67,32 @@ class OutController extends Controller
 
         $store = $this->table->create([
             'letter_no' => $request->letter_no,
+            'type' => 'OUT',
             'letter_date' => $request->letter_date,
-            'recipient' => $request->recipient,
+            'sender' => $request->sender,
             'subject' => $request->subject,
+            'category_id' => $request->category_id,
+            'level_id' => $request->level_id,
             'attachment' => $path
         ]);
 
         LetterAgenda::create([
             'agenda_no' => $this->agendaTable->generateNo(),
             'date' => $request->letter_date,
-            'out_letter_id' => $store->id,
+            'in_letter_id' => $store->id,
         ]);
 
-        return redirect()->route('out.index')->with('success', 'Data saved successfully');
+        return redirect()->route('in_ex.index')->with('success', 'Data saved successfully');
     }
 
     public function update(Request $request) {
         $validator = Validator::make($request->all(), [
-            'letter_no' => 'required|min:3|unique:out_letters,letter_no,'.$request->id,
+            'letter_no' => 'required|min:3|unique:in_letters,letter_no,'.$request->id,
             'letter_date' => 'required',
-            'recipient' => 'required',
-            'subject' => 'required'
+            'sender' => 'required',
+            'subject' => 'required',
+            'category_id' => 'required',
+            'level_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -98,17 +110,20 @@ class OutController extends Controller
 
         $store = $this->table->where('id', $request->id)->update([
             'letter_no' => $request->letter_no,
+            'type' => 'OUT',
             'letter_date' => $request->letter_date,
-            'recipient' => $request->recipient,
+            'sender' => $request->sender,
             'subject' => $request->subject,
-            'attachment' => $path
+            'attachment' => $path,
+            'category_id' => $request->category_id,
+            'level_id' => $request->level_id,
         ]);
 
-        LetterAgenda::where('out_letter_id', $request->id)->update([
+        LetterAgenda::where('in_letter_id', $request->id)->update([
             'date' => $request->letter_date,
         ]);
 
-        return redirect()->route('out.index')->with('success', 'Data updated successfully');
+        return redirect()->route('in_ex.index')->with('success', 'Data updated successfully');
     }
 
     public function destroy($id) {
@@ -116,13 +131,13 @@ class OutController extends Controller
 
         $destroy = $data->delete();
 
-        return redirect()->route('out.index')->with('success', 'Data deleted successfully');
+        return redirect()->route('in_ex.index')->with('success', 'Data deleted successfully');
     }
 
     public function report()
     {
         $letters = $this->table->get();
-        $pdf = Pdf::loadView('pdf.report.out_report', ['letters' => $letters])->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('pdf.report.in_report', ['letters' => $letters])->setPaper('a4', 'potrait');
         return $pdf->stream();
     }
 }

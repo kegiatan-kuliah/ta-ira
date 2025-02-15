@@ -13,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Auth;
 
-class InLettersDataTable extends DataTable
+class InLetterExternalsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -38,12 +38,12 @@ class InLettersDataTable extends DataTable
                         </a>
                     ';
                     if(Auth::user()->can('edit surat masuk')) {
-                        $html .= '<a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                        $html .= '<a href="'.route('in_ex.edit', $model->id).'" class="btn btn-info">
                             <i class="fas fa-pencil-alt"></i>
                         </a>';
                     }
                      if(Auth::user()->can('hapus surat masuk')) {
-                        $html .= '<a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
+                        $html .= '<a href="'.route('in_ex.destroy', $model->id).'" class="btn btn-danger">
                             <i class="fas fa-trash"></i>
                         </a>';
                     }
@@ -60,12 +60,12 @@ class InLettersDataTable extends DataTable
                         ';
                     }
                     if(Auth::user()->can('edit surat masuk')) {
-                        $html .= '<a href="'.route('in.edit', $model->id).'" class="btn btn-info">
+                        $html .= '<a href="'.route('in_ex.edit', $model->id).'" class="btn btn-info">
                             <i class="fas fa-pencil-alt"></i>
                         </a>';
                     }
                     if(Auth::user()->can('hapus surat masuk')) {
-                        $html .= '<a href="'.route('in.destroy', $model->id).'" class="btn btn-danger">
+                        $html .= '<a href="'.route('in_ex.destroy', $model->id).'" class="btn btn-danger">
                             <i class="fas fa-trash"></i>
                         </a>';
                     }
@@ -75,7 +75,6 @@ class InLettersDataTable extends DataTable
                     return $html;
                     
                 }
-                
                 return '-';
             });
     }
@@ -86,10 +85,10 @@ class InLettersDataTable extends DataTable
     public function query(InLetter $model): QueryBuilder
     {
         if(Auth::user()->can('lihat semua surat masuk')) {
-            return $model->where('type','IN')->newQuery();
+            return $model->where('type','OUT')->newQuery();
         } else {
 
-            return $model->where('type','IN')->whereHas('disposition', function ($query) {
+            return $model->where('type','OUT')->whereHas('disposition', function ($query) {
                 $query->where('employee_id', Auth::user()->employee->id);
             })->newQuery();
         }
@@ -131,7 +130,7 @@ class InLettersDataTable extends DataTable
                 ->width(20),
             Column::make('letter_no')->title('No Surat'),
             Column::make('letter_date')->title('Tanggal Surat'),
-            Column::make('sender')->title('Unit'),
+            Column::make('sender')->title('Pengirim'),
             Column::make('subject')->title('Perihal'),
             Column::make('category')->title('Jenis'),
             Column::make('level')->title('Sifat'),
