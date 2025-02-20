@@ -62,6 +62,7 @@
                 <th>Tanggal Surat</th>
                 <th>Tujuan</th>
                 <th>Perihal</th>
+                <th>Tanggal Entry</th>
             </tr>
         </thead>
         <tbody>
@@ -72,6 +73,8 @@
                     <td>{{ Carbon::parse($letter->date)->translatedFormat('d F Y') }}</td>
                     <td>{{ $letter->recipient }}</td>
                     <td>{{ $letter->subject }}</td>
+                    <td>{{ Carbon::parse($letter->date)->translatedFormat('d F Y') }}</td>
+
                 </tr>
             @empty
                 <tr>

@@ -12,6 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Auth;
+use Carbon\Carbon;
 
 class OutLettersDataTable extends DataTable
 {
@@ -24,6 +25,9 @@ class OutLettersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
+            ->addColumn('entry', function($model) {
+                return Carbon::parse($model->created_at)->translatedFormat('Y-m-d');
+            })
             ->addColumn('action', function($model){ 
                 if(Auth::user()->can('edit surat keluar') && Auth::user()->can('hapus surat keluar')) {
                     return '
@@ -95,6 +99,7 @@ class OutLettersDataTable extends DataTable
                 ->width(20),
             Column::make('letter_no')->title('No Surat'),
             Column::make('letter_date')->title('Tanggal Surat'),
+            Column::make('entry')->title('Tanggal Entry'),
             Column::make('recipient')->title('Penerima'),
             Column::make('subject')->title('Perihal'),
             Column::computed('action')
