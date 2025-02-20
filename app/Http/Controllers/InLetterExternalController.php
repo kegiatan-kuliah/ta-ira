@@ -136,7 +136,7 @@ class InLetterExternalController extends Controller
 
     public function report()
     {
-        $letters = $this->table->get();
+        $letters = $this->table->where('type','OUT')->get();
         $pdf = Pdf::loadView('pdf.report.in_report', ['letters' => $letters])->setPaper('a4', 'potrait');
         return $pdf->stream();
     }

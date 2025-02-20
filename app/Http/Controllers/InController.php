@@ -134,8 +134,8 @@ class InController extends Controller
 
     public function report()
     {
-        $letters = $this->table->get();
-        $pdf = Pdf::loadView('pdf.report.in_report', ['letters' => $letters])->setPaper('a4', 'potrait');
+        $letters = $this->table->where('type','IN')->get();
+        $pdf = Pdf::loadView('pdf.report.in_report', ['letters' => $letters])->setPaper('a4', 'landscape');
         return $pdf->stream();
     }
 }

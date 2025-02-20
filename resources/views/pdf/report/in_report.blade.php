@@ -30,6 +30,11 @@
         th {
             background-color: #f2f2f2;
         }
+
+        .signature {
+            float: right;
+            margin-top: 40px;
+        }
         
     </style>
     @php
@@ -63,7 +68,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($letters as $index => $letter)
+            @forelse ($letters as $index => $letter)
                 <tr>
                     <td>{{ $index+1 }}</td>
                     <td>{{ $letter->letter_no }}</td>
@@ -74,9 +79,24 @@
                     <td>{{ $letter->subject }}</td>
                     <td>{{ Carbon::parse($letter->created_at)->translatedFormat('d F Y') }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="8">Tidak Ada Data</td>
+                </tr>
+
+            @endforelse
         </tbody>
     </table>
+
+    <div class="signature">
+        {{ Carbon::now()->translatedFormat('d F Y')}}<br>
+        <strong>Agendaris FEB UNP</strong></p>
+        <br>
+        <br>
+        <br>
+        <p><strong>Alamsyah</strong><br>
+        NIP. 196804012007011001</p>
+    </div>
 </body>
 
 </html>

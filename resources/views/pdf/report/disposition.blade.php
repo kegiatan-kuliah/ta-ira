@@ -68,5 +68,6 @@
         <p><strong>Prof. Perengki Susanto, SE, M.Sc, Ph.D</strong><br>
         NIP. 1981040420050110</p>
     </div>
+    
 </body>
 </html>
