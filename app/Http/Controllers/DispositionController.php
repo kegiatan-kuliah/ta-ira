@@ -15,7 +15,11 @@ class DispositionController extends Controller
     public function new($letterId)
     {
         $data = InLetter::findOrFail($letterId);
-        $employees = Employee::pluck('name','id');
+        $employees = [];
+        foreach(Employee::get() as $employee) {
+            $employees[$employee->id] = $employee->name.' - '.$employee->user->role;
+        }
+
         return view('pages.disposition.new')->with([
             'data' => $data,
             'employees' => $employees

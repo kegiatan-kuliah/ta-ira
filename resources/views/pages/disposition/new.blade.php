@@ -24,7 +24,7 @@
         <div class="col-md-12">
           <div class="form-group">
             {{ html()->label('Disposisikan Kepada', 'employee_id')->class('form-label') }}
-            {{ html()->select('employee_id', ['' => 'Pilih Karyawan'] + $employees->toArray())
+            {{ html()->select('employee_id', ['' => 'Pilih Karyawan'] + $employees)
                 ->class('form-control')
               }}
           </div>
