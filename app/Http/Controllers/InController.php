@@ -132,9 +132,10 @@ class InController extends Controller
         return redirect()->route('in.index')->with('success', 'Data deleted successfully');
     }
 
-    public function report()
+    public function report(Request $request)
     {
-        $letters = $this->table->where('type','IN')->get();
+        $dates = explode(' - ', $request->dates);
+        $letters = $this->table->whereBetween('created_at',[$dates[0], $dates[1]])->where('type','IN')->get();
         $pdf = Pdf::loadView('pdf.report.in_report', ['letters' => $letters])->setPaper('a4', 'landscape');
         return $pdf->stream();
     }

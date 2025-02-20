@@ -53,7 +53,7 @@
         <p style="margin-bottom: 0px; margin-top: 0px; text-align: center;">0751445089</p>
         <hr>
     </div>
-    <h2 style="text-align: center;">Laporan Surat Masuk FEB UNP</h2>
+    <h2 style="text-align: center;">Laporan Surat Masuk External FEB UNP</h2>
     <table>
         <thead>
             <tr>
@@ -62,7 +62,7 @@
                 <th>Tanggal Surat</th>
                 <th>Jenis Surat</th>
                 <th>Sifat Surat</th>
-                <th>Unit</th>
+                <th>Pengirim</th>
                 <th>Perihal</th>
                 <th>Tanggal Masuk</th>
             </tr>

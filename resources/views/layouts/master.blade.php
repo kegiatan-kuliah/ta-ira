@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/datepickerrange.css') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 </head>
 <body class="hold-transition sidebar-mini">
@@ -198,6 +199,8 @@
   <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
   <script src="{{ asset('js/datatables.min.js') }}"></script>
+  <script src="{{ asset('js/moment.js') }}"></script>
+  <script src="{{ asset('js/datepickerrange.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
   @stack('scripts')
 </body>

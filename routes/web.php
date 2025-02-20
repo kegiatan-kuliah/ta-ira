@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::controller(InController::class)->prefix('in')->name('in.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/report', 'report')->name('report');
+        Route::post('/report', 'report')->name('report');
         Route::get('/new', 'new')->name('new');
         Route::get('/{id}', 'edit')->name('edit');
         Route::post('/', 'store')->name('store');
@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::controller(InLetterExternalController::class)->prefix('in_ex')->name('in_ex.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/report', 'report')->name('report');
+        Route::post('/report', 'report')->name('report');
         Route::get('/new', 'new')->name('new');
         Route::get('/{id}', 'edit')->name('edit');
         Route::post('/', 'store')->name('store');
