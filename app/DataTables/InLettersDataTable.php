@@ -12,6 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Auth;
+use Carbon\Carbon;
 
 class InLettersDataTable extends DataTable
 {
@@ -29,6 +30,9 @@ class InLettersDataTable extends DataTable
             })
             ->addColumn('level', function($model) {
                 return $model->level->name ?? '-';
+            })
+            ->addColumn('entry', function($model) {
+                return Carbon::parse($model->created_at)->translatedFormat('Y-m-d');
             })
             ->addColumn('action', function($model){
                 if(isset($model->disposition)) {
@@ -131,6 +135,7 @@ class InLettersDataTable extends DataTable
                 ->width(20),
             Column::make('letter_no')->title('No Surat'),
             Column::make('letter_date')->title('Tanggal Surat'),
+            Column::make('entry')->title('Tanggal Entry'),
             Column::make('sender')->title('Unit'),
             Column::make('subject')->title('Perihal'),
             Column::make('category')->title('Jenis'),

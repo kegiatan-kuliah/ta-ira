@@ -18,29 +18,44 @@
     <div class="col-lg-3 col-6">
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>2</h3>
+          <h3>{{ $inLetters }}</h3>
 
-          <p>Surat Masuk</p>
+          <p>Surat Masuk Internal</p>
         </div>
         <div class="icon">
           <i class="fas fa-inbox"></i>
         </div>
-        <a href="#" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ route('in.index') }}" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
+
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>{{ $inExLetters }}</h3>
+
+          <p>Surat Masuk External</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-inbox"></i>
+        </div>
+        <a href="{{ route('in_ex.index') }}" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+
     <!-- ./col -->
     <div class="col-lg-3 col-6">
       <!-- small box -->
       <div class="small-box bg-success">
         <div class="inner">
-          <h3>2</h3>
+          <h3>{{ $outLetters }}</h3>
 
           <p>Surat Keluar</p>
         </div>
         <div class="icon">
           <i class="fas fa-paper-plane"></i>
         </div>
-        <a href="#" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ route('out.index') }}" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -48,7 +63,7 @@
       <!-- small box -->
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>2</h3>
+          <h3>{{ $agendas }}</h3>
 
           <p>Agenda</p>
         </div>
