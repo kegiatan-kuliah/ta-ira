@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::controller(OutController::class)->prefix('out')->name('out.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/report', 'report')->name('report');
+        Route::post('/report', 'report')->name('report');
         Route::get('/new', 'new')->name('new');
         Route::get('/{id}', 'edit')->name('edit');
         Route::post('/', 'store')->name('store');
