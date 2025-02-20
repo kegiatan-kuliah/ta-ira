@@ -40,7 +40,15 @@
 </head>
 
 <body>
-    <h2>Laporan Surat Masuk FEB UNP</h2>
+    <div>
+        <img src="{{ public_path('img/logo-unp.png') }}" alt="" width="70px" height="70px" style="position: absolute; top: 15px;">
+        <h3 style="margin-bottom: 0px; text-align: center;">UNIVERSITAS NEGERI PADANG</h3>
+        <h1 style="margin-top: 0px; margin-bottom: 0px; text-align: center;">FAKULTAS EKONOMI DAN BISNIS</h1>
+        <p style="margin-bottom: 0px; margin-top: 0px; text-align: center;">Jl. Prof. Dr. Hamka, Air Tawar Bar., Kec. Padang Utara, Kota Padang, Sumatera Barat 25132</p>
+        <p style="margin-bottom: 0px; margin-top: 0px; text-align: center;">0751445089</p>
+        <hr>
+    </div>
+    <h2 style="text-align: center;">Laporan Surat Masuk FEB UNP</h2>
     <table>
         <thead>
             <tr>
@@ -51,6 +59,7 @@
                 <th>Sifat Surat</th>
                 <th>Pengirim</th>
                 <th>Perihal</th>
+                <th>Tanggal Masuk</th>
             </tr>
         </thead>
         <tbody>
@@ -63,6 +72,7 @@
                     <td>{{ $letter->level->name }}</td>
                     <td>{{ $letter->sender }}</td>
                     <td>{{ $letter->subject }}</td>
+                    <td>{{ Carbon::parse($letter->created_at)->translatedFormat('d F Y') }}</td>
                 </tr>
             @endforeach
         </tbody>

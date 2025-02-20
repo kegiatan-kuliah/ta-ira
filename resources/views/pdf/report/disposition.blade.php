@@ -26,17 +26,21 @@
             font-weight: bold;
         }
         .signature {
-            text-align: right;
+            float: right;
             margin-top: 40px;
         }
     </style>
 </head>
 <body>
+    <div>
+        <img src="{{ public_path('img/logo-unp.png') }}" alt="" width="70px" height="70px" style="position: absolute; top: 25px;">
+        <h3 style="margin-bottom: 0px; text-align: center;">UNIVERSITAS NEGERI PADANG</h3>
+        <h1 style="margin-top: 0px; margin-bottom: 0px; text-align: center;">FAKULTAS EKONOMI DAN BISNIS</h1>
+        <p style="margin-bottom: 0px; margin-top: 0px; text-align: center;">Jl. Prof. Dr. Hamka, Air Tawar Bar., Kec. Padang Utara, Kota Padang, Sumatera Barat 25132</p>
+        <p style="margin-bottom: 0px; margin-top: 0px; text-align: center;">0751445089</p>
+        <hr>
+    </div>
     <div class="header">
-        <h2>UNIVERSITAS NEGERI PADANG</h2>
-        <h3>FAKULTAS EKONOMI DAN BISNIS</h3>
-        <p>Jl. Prof. Dr. Hamka, Air Tawar Bar., Kec. Padang Utara, Kota Padang, Sumatera Barat 25132<br>
-        0751445089</p>
         <h3><u>SURAT PERINTAH TUGAS</u></h3>
         <p>Nomor: {{ $data->letter_disposition_no }}</p>
     </div>
@@ -55,9 +59,12 @@
     </div>
 
     <div class="signature">
-        <p>Ditapkan FEB UNP<br>
+        <p>Ditetapkan FEB UNP<br>
         Pada Tanggal 06 Januari 2025<br>
         <strong>Pimpinan FEB UNP</strong></p>
+        <br>
+        <br>
+        <br>
         <p><strong>Prof. Perengki Susanto, SE, M.Sc, Ph.D</strong><br>
         NIP. 1981040420050110</p>
     </div>
